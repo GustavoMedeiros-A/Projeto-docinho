@@ -4,6 +4,10 @@ import { User } from './typeorm/entities/User';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
+import { IngredientsModule } from './modules/ingredients/ingredients.module';
+import { Ingredient } from './typeorm/entities/Ingredients';
+import { Product } from './typeorm/entities/Product';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -14,10 +18,12 @@ import { UsersModule } from './modules/users/users.module';
       username: 'root',
       password: 'admin',
       database: 'projeto_docinho_database',
-      entities: [User],
+      entities: [User, Ingredient, Product],
       synchronize: true,
     }),
     UsersModule,
+    IngredientsModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
