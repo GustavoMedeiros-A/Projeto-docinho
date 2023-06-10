@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ICreateProductDto } from './dtos/CreateProduct.dto';
-import { UpdateProductDto } from './dtos/UpdateProduct.dto';
+import { IUpdateProductDto } from './dtos/UpdateProduct.dto';
 
 @Controller('products')
 export class ProductController {
@@ -33,15 +33,15 @@ export class ProductController {
     return this.productService.createProduct(productDetails);
   }
 
-  // @Put(':id')
-  // public async updateProduct(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() updateProductDto: UpdateProductDto,
-  // ) {
-  //   const { ...updateProductDetails } = updateProductDto;
-  //   await this.productService.updateProduct(id, updateProductDto);
-  //   return updateProductDetails;
-  // }
+  @Put(':id')
+  public async updateProduct(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProductDto: IUpdateProductDto,
+  ) {
+    const { ...updateProductDetails } = updateProductDto;
+    await this.productService.updateProduct(id, updateProductDto);
+    return updateProductDetails;
+  }
 
   @Delete(':id')
   public async deleteProduct(@Param('id', ParseIntPipe) id: number) {

@@ -3,7 +3,6 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Ingredient } from './Ingredients';
@@ -19,6 +18,7 @@ export class Product {
   @Column()
   value: number;
 
-  @OneToMany(() => Ingredient, (ingredient) => ingredient.products)
+  @ManyToMany(() => Ingredient, (ingredient) => ingredient.products)
+  @JoinTable()
   ingredients: Ingredient[];
 }
