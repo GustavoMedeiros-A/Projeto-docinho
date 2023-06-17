@@ -3,7 +3,7 @@ import { Ingredient } from 'src/typeorm/entities/Ingredients';
 export interface IUpdateProductDto {
   name: string;
   value: number;
-  ingredients: number[];
+  ingredients: number[] | any;
 }
 
 export interface IUpdateProductOutputDto {

@@ -66,28 +66,25 @@ export class ProductService {
       throw new Error(err);
     }
   }
-  async updateProduct(id: number, data: IUpdateProductDto) {
+  async updateProduct(
+    id: number,
+    data: IUpdateProductDto,
+  ): Promise<IUpdateProductOutputDto> {
     const { name, value, ingredients } = data;
     try {
       const ingredient = await this.ingredientRepository.findBy({
         id: In([ingredients]),
       });
 
-      const updateProduct = this.productRepository.findOneBy({ id });
+      const updateProduct = await this.productRepository.findOneBy({ id });
       if (!updateProduct) {
         throw new Error('Product not found');
       }
+      (await updateProduct).ingredients = ingredient;
 
-      console.log(((await updateProduct).ingredients = ingredient));
-      await this.productRepository.update(
-        { id },
-        {
-          name,
-          value,
-        },
-      );
+      const updatedProduct = await this.productRepository.save(updateProduct);
 
-      return updateProduct;
+      return updatedProduct;
     } catch (error) {
       throw new Error(error);
     }
