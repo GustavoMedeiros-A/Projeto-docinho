@@ -50,6 +50,6 @@ export class UsersController {
       throw new NotFoundException('User not found');
     }
     await this.userService.deleteUser(id);
-    return 'Usuário deletado';
+    return 'User deleted';
   }
 }
